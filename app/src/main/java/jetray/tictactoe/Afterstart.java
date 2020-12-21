@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Afterstart extends AppCompatActivity {
@@ -37,7 +38,7 @@ public class Afterstart extends AppCompatActivity {
     int summ = 0, ctrflag = 0, night = 0, resetchecker = 1, currentgamedonechecker = 0;
     int score1 = 0, score2 = 0, drawchecker = 0;
     static int[][] tracker = new int[3][3];
-    ArrayList<Integer> sum = new ArrayList<>(8);
+    ArrayList<Integer> sum = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0));
     static int[][] buttonpressed = new int[3][3];
 
     boolean player1ax;
@@ -67,7 +68,6 @@ public class Afterstart extends AppCompatActivity {
         medium = getIntent().getBooleanExtra("medium", false);
         hard = getIntent().getBooleanExtra("hard", false);
         impossible = getIntent().getBooleanExtra("impossible", false);
-
 
         if (player1ax) {
             ax = 1;
