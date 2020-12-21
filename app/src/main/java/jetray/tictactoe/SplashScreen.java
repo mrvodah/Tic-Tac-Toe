@@ -24,8 +24,6 @@ public class SplashScreen extends AppCompatActivity {
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
-
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -33,7 +31,7 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }, 4000);
+        }, 3000);
 
     }
 }

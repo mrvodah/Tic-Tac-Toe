@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Afterstart extends AppCompatActivity {
@@ -27,11 +28,16 @@ public class Afterstart extends AppCompatActivity {
     boolean impossible;
     Random r = new Random();
 
-    int flag = 0, ax = 10, zero = 1, sensorflag = 0, win = 0, i, game = 1, prevrow, prevcol;
+    int flag = 0;
+    int ax = 10;
+    int zero = 1;
+    int win = 0;
+    int i;
+    int game = 1;
     int summ = 0, ctrflag = 0, night = 0, resetchecker = 1, currentgamedonechecker = 0;
     int score1 = 0, score2 = 0, drawchecker = 0;
     static int[][] tracker = new int[3][3];
-    int[] sum = new int[8];
+    ArrayList<Integer> sum = new ArrayList<>(8);
     static int[][] buttonpressed = new int[3][3];
 
     boolean player1ax;
@@ -239,7 +245,7 @@ public class Afterstart extends AppCompatActivity {
     public boolean ifcpuwin() {
         if (!easy) {
             for (i = 0; i < 8; i++) {
-                if (sum[i] == 2 * zero) {
+                if (sum.get(i) == 2 * zero) {
                     if (i == 0) {
                         for (int x = 0; x < 3; x++)
                             if (tracker[0][x] == 0)
@@ -304,7 +310,7 @@ public class Afterstart extends AppCompatActivity {
         if ((!easy) || (!medium)) {
 
             for (i = 0; i < 8; i++) {
-                if (sum[i] == 2 * ax) {
+                if (sum.get(i) == 2 * ax) {
                     if (i == 0) {
                         for (int x = 0; x < 3; x++)
                             if (tracker[0][x] == 0) {
@@ -415,9 +421,9 @@ public class Afterstart extends AppCompatActivity {
 
 
         if (impossible)
-            if (sum[6] == zero || sum[7] == zero) {
-                if (sum[6] == zero) {
-                    if ((sum[0] + sum[3]) > (sum[2] + sum[5])) {
+            if (sum.get(6) == zero || sum.get(7) == zero) {
+                if (sum.get(6) == zero) {
+                    if ((sum.get(0) + sum.get(3)) > (sum.get(2) + sum.get(5))) {
                         tracker[0][0] = zero;
                         buttonpressed[0][0]++;
                     } else {
@@ -427,8 +433,8 @@ public class Afterstart extends AppCompatActivity {
                     return true;
                 }
 
-                if (sum[7] == zero) {
-                    if ((sum[0] + sum[5]) > (sum[3] + sum[2])) {
+                if (sum.get(7) == zero) {
+                    if ((sum.get(0) + sum.get(5)) > (sum.get(3) + sum.get(2))) {
                         tracker[0][2] = zero;
                         buttonpressed[0][2]++;
                     } else {
@@ -620,44 +626,44 @@ public class Afterstart extends AppCompatActivity {
 
     public void winchecker() {
         ctrflag++;
-        sum[0] = tracker[0][0] + tracker[0][1] + tracker[0][2];
-        sum[1] = tracker[1][0] + tracker[1][1] + tracker[1][2];
-        sum[2] = tracker[2][0] + tracker[2][1] + tracker[2][2];
-        sum[3] = tracker[0][0] + tracker[1][0] + tracker[2][0];
-        sum[4] = tracker[0][1] + tracker[1][1] + tracker[2][1];
-        sum[5] = tracker[0][2] + tracker[1][2] + tracker[2][2];
-        sum[6] = tracker[0][0] + tracker[1][1] + tracker[2][2];
-        sum[7] = tracker[0][2] + tracker[1][1] + tracker[2][0];
+        sum.set(0, tracker[0][0] + tracker[0][1] + tracker[0][2]);
+        sum.set(1, tracker[1][0] + tracker[1][1] + tracker[1][2]);
+        sum.set(2, tracker[2][0] + tracker[2][1] + tracker[2][2]);
+        sum.set(3, tracker[0][0] + tracker[1][0] + tracker[2][0]);
+        sum.set(4, tracker[0][1] + tracker[1][1] + tracker[2][1]);
+        sum.set(5, tracker[0][2] + tracker[1][2] + tracker[2][2]);
+        sum.set(6, tracker[0][0] + tracker[1][1] + tracker[2][2]);
+        sum.set(7, tracker[0][2] + tracker[1][1] + tracker[2][0]);
 
 
         currentgamedonechecker++;
         resetchecker++;
 
         for (int i = 0; i < 8; i++)
-            if (sum[i] == 3 || sum[i] == 30) {
+            if (sum.get(i) == 3 || sum.get(i) == 30) {
                 win++;
-                if ((sum[i] == 3) && (ax == 1)) {
+                if ((sum.get(i) == 3) && (ax == 1)) {
                     score1++;
                     TextView q1 = (TextView) findViewById(R.id.p1score);
                     q1.setText("" + score1);
                     showDialog("" + player1 + " won!", "" + score1, "" + player2, "" + score2);
 
                 }
-                if ((sum[i] == 3) && (zero == 1)) {
+                if ((sum.get(i) == 3) && (zero == 1)) {
                     score2++;
                     TextView q1 = (TextView) findViewById(R.id.p2score);
                     q1.setText("" + score2);
                     showDialog("" + player2 + " won!", "" + score2, "" + player1, "" + score1);
 
                 }
-                if ((sum[i] == 30) && (ax == 10)) {
+                if ((sum.get(i) == 30) && (ax == 10)) {
                     score1++;
                     TextView q1 = (TextView) findViewById(R.id.p1score);
                     q1.setText("" + score1);
                     showDialog("" + player1 + " won!", "" + score1, "" + player2, "" + score2);
 
                 }
-                if ((sum[i] == 30) && (zero == 10)) {
+                if ((sum.get(i) == 30) && (zero == 10)) {
                     score2++;
                     TextView q1 = (TextView) findViewById(R.id.p2score);
                     q1.setText("" + score2);
@@ -683,7 +689,7 @@ public class Afterstart extends AppCompatActivity {
             qq.setText("" + game);
 
             for (int i = 0; i < 8; i++)
-                sum[i] = 0;
+                sum.set(i, 0);
 
             drawchecker = 0;
 
